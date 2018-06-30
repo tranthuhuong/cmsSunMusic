@@ -1,0 +1,16 @@
+.img-user-list{
+	width: 30px;
+	border: 0px solid;
+	border-radius: 15px;
+}
+.artist_info{
+	height: 60px;
+	overflow:hidden;
+	max-width: 200px;
+}
+.img-cover-list{
+	width: 80px;
+}
+#info_summary{
+	height: 150px;
+}
