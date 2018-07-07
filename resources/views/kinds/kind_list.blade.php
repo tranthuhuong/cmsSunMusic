@@ -60,7 +60,7 @@
                                         </td>
                                         <td>{{$kind->kind_id}}</td>
                                         <td>{{$kind->kind_name}}</td>
-                                        <td>..</td>
+                                        <td>{{$kind->songs->count()}}</td>
                                         <td>{{$kind->created_at}}</td>
                                         <td>
                                             <a href="kinds/delete/{{$kind->kind_id}}" class="btn btn-danger"> <span class="fa fa-close"></span> </a>

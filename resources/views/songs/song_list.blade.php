@@ -41,7 +41,6 @@
                                         <th>Sáng tác</th>
                                         <th>Thể loại</th>
                                         <th>Quốc gia</th>
-                                        <th>link</th>
                                         <th>SL xem</th>
                                         <th>Thao tác</th>
                                     </tr>
@@ -55,7 +54,6 @@
                                         <th>Sáng tác</th>
                                         <th>Thể loại</th>
                                         <th>Quốc gia</th>
-                                        <th>link</th>
                                         <th>SL xem</th>
                                         <th>Thao tác</th>
                                     </tr>
@@ -67,16 +65,23 @@
                                             <img src="{{$song->song_image}}" alt="" class="img-user-list">
                                         </td>
                                         <td>{{$song->song_id}}</td>
-                                        <td>{{$song->song_name}}</td>
-                                        <td>{{$song->singer->artist_name}}</td>
-                                        <td>{{$song->author->artist_name}}</td>
-                                        <td>{{$song->kind->kind_name}}</td>
-                                        <td>{{$song->nation->nation_name}}</td>
+                                        <td><a href="songs/{{$song->song_id}}/detail">{{$song->song_name}}</a></td>
                                         <td>
-                                            <audio controls>
-                                              <source src="{{$song->link}}" type="audio/mpeg">
-                                            </audio>
+                                           @foreach($song->singers as $singersongs)
+                                               {{$singersongs->artists->artist_name}} <br> 
+                                           @endforeach
                                         </td>
+                                        <td>
+                                            @foreach($song->authors as $authorsongs)
+                                               {{$authorsongs->artists->artist_name}} <br> 
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach($song->kinds as $kindsong)
+                                               {{$kindsong->kinds->kind_name}} <br> 
+                                           @endforeach
+                                        </td>
+                                        <td>{{$song->nation->nation_name}}</td>
                                         <td>{{$song->amount_view}}</td>
                                         <td>
                                             <a href="songs/delete/{{$song->song_id}}" class="btn btn-danger"> <span class="fa fa-close"></span> </a>

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('css')
 <link href="css/style_page.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
 <!-- Bread crumb -->
@@ -72,9 +73,8 @@
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="nation_id">Trình bày <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="val-skill" name="singer_id">
-                                           
-                                           @foreach($artists as $artist)
+                                        <select class="js-example-basic-multiple form-control" name="singer_id[]" multiple="multiple" >
+                                          @foreach($artists as $artist)
                                                  <option value="{{$artist->artist_id}}">{{$artist->artist_name}}</option>
                                            @endforeach
                                         </select>
@@ -83,9 +83,8 @@
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="nation_id">Sáng tác <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="val-skill" name="author_id">
-                                           
-                                           @foreach($artists as $artist)
+                                        <select class="js-example-basic-multiple form-control" name="author_id[]" multiple="multiple" >
+                                          @foreach($artists as $artist)
                                                  <option value="{{$artist->artist_id}}">{{$artist->artist_name}}</option>
                                            @endforeach
                                         </select>
@@ -94,12 +93,12 @@
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="kind_id">Thể loại <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="val-skill" name="kind_id">
-                                           
-                                           @foreach($kinds as $kind)
+                                        <select class="js-example-basic-multiple form-control" name="kind_id[]" multiple="multiple" >
+                                         @foreach($kinds as $kind)
                                                  <option value="{{$kind->kind_id}}">{{$kind->kind_name}}</option>
                                            @endforeach
                                         </select>
+                                        
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -125,5 +124,10 @@
     <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
     <script src="js/custom.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+    </script>
 @endsection

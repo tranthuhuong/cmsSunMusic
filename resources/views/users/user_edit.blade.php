@@ -10,7 +10,8 @@
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
-                <li class="breadcrumb-item active">Edit</li>
+                <li class="breadcrumb-item">Edit</li>
+                <li class="breadcrumb-item active">{{$user->id}}</li>
             </ol>
         </div>
     </div>
@@ -21,50 +22,74 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Chỉnh sửa Thành viên</h4>
+                        <h4 class="card-title">Chỉnh sửa Thành viên {{$user->id}}</h4>
                          <div class="form-validation">
-                            <form class="form-valide">
+                            @if(count($errors)>0)
+                            <div class="alert alert-danger">
+                                @foreach($errors->all() as $err)
+                                    {{$err}}<br>
+                                @endforeach
+                            </div>
+                            @endif
+                            @if(session('thongbao'))
+                                <div class="alert alert-success">
+                                    {{session('thongbao')}}
+                                </div>
+                            @endif
+                            {!! Form::open(['url' => 'users/edit']) !!}
 
+                            {!! Form::close() !!}
+                            <form class="form-valide" action="users/edit/{{$user->id}}" method="post">
+                                @csrf
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-username">Id <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="val-uid" name="val-username" placeholder="Nhập ID.." value="Huong" readonly>
+                                        <input type="text" class="form-control" id="val-uid" value="{{$user->id}}" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-name">Tên <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="val-username" name="val-username" placeholder="Nhập tên.." value="Huong">
+                                        <input type="text" class="form-control"  name="name" placeholder="Nhập tên.." value="{{$user->name}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-email">Email <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="email" class="form-control" id="val-email" name="val-email" placeholder="Nhập email.." value="Huong@gmail.com">
+                                        <input type="email" class="form-control" name="email" placeholder="Nhập email.." value="{{$user->email}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-password">Mật khẩu <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="password" class="form-control" id="val-password" name="val-password" placeholder="Nhập mật khẩu.." value="Huong">
+                                        <input type="password" class="form-control"   name="password" placeholder="Nhập mật khẩu.." value="{{$user->password}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="val-skill">Phân quyền <span class="text-danger">*</span></label>
+                                    <label class="col-lg-4 col-form-label" for="nation_id">Phân quyền <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="val-skill" name="val-skill">
-                                            <option value="0">Ban quản trị</option>
-                                            <option value="1">Thành viên</option>
+                                        <select class="form-control" id="val-skill" name="jurisdiction_id">
                                            
+                                           @foreach($jurisdictions as $jurisdiction)
+                                                 <option 
+                                                    @if($jurisdiction->jurisdiction_id==$user->jurisdiction_id)
+                                                        {{"selected"}}
+                                                    @endif
+                                                  value="{{$jurisdiction->jurisdiction_id}}">{{$jurisdiction->jurisdiction_name}}</option>
+                                           @endforeach
                                         </select>
                                     </div>
                                 </div>
-                               
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="val-password">Hình ảnh <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="val-password" name="image" placeholder="Hình ảnh.." value="{{$user->image}}">
+                                    </div>
+                                </div>
                                 
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button  class="btn btn-primary">Lưu</button>
-                                         <button  class="btn btn-dark">Hủy</button>
+                                        <input type="submit" value="Lưu" class="btn btn-primary">
                                     </div>
                                 </div>
                             </form>

@@ -15,9 +15,14 @@ class Artist extends Model
         return $this->belongsto('App\Nation','nation_id','nation_id');
 
     }
-    public function songs(){
-        return $this->hasMany('App\Song','singer_id','artist_id');
+    /*public function songs(){
+        //'App\singer_song' model trung gian 
+        return $this->hasManyThrough('App\Song','App\Singersong','artist_id','song_id','song_id');
+    }*/
+    public function songsinger(){
+        //'App\singer_song' model trung gian 
+        return $this->hasMany('App\Singersong','artist_id','artist_id');
     }
-    
+
 }
 

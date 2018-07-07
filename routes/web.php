@@ -23,11 +23,11 @@
 //Route trỏ đến Controller AuthController gọi hàm login
 Route::post('checklogin','AuthController@login')->name('checklogin');
 
-/*Route::get('/addCollumCover',function(){
-	Schema::table('artists',function($table){
-		$table -> string('cover_img');
+Route::get('/addCollum',function(){
+	Schema::table('kinds',function($table){
+		$table -> string('short_name');
 	});
-});*/
+});
 
 //truy vấn thông qua model
 
@@ -35,12 +35,18 @@ Route::get('/testQueryDBUser',function(){
 	$user=App\User::find('sunsun');
 	echo $user->name;
 });
-Route::get('/lienket',function(){
-	//$data=App\User::find('sunsun')->jurisdiction->toArray();
-	$data=App\Jurisdiction::where('jurisdiction_id',1)->first()->users->toJson();
-
-	echo $data;
-});
+	Route::get('/lienket',function(){
+		//$data=App\User::find('sunsun')->jurisdiction->toArray();
+		$singers=App\playlist::where('playlist_id',1)->first()->songs;
+		 /*$singers = DB::table('Artists')
+	            ->join('Singer_song', 'Singer_song.artist_id', '=', 'Artists.artist_id')
+	            ->join('songs', 'songs.song_id', '=', 'Singer_song.song_id')
+	            ->where('songs.song_id','until-you-1530804969')
+	            ->select('Artists.*')
+	            ->get();*/
+	  //  $singers=App\song::where('song_id','until-you-1530804969')->first()->singers;
+		echo $singers ;
+	});
 
 Auth::routes();
 
@@ -57,11 +63,16 @@ Route::get('/test',function(){
 //nhóm route user
 Route::prefix('users')->group(function () {
     Route::get('list','UsersController@getList');
-    //user/edit
-	Route::get('edit','UsersController@getEdit');
-	//user/add
+    //users/edit
+    Route::get('edit/{id}','UsersController@getEdit');
+	Route::post('edit/{id}','UsersController@postEdit');
+	//users/add
 	Route::get('add','UsersController@getAdd');
 	Route::post('add','UsersController@postAdd');
+	//users/delete/1
+	Route::get('delete/{id}','UsersController@getDelete');
+	//users/1/detail
+	Route::get('{id}/detail','UsersController@getDetail');
 });
 
 Route::prefix('kinds')->group(function () {
@@ -90,24 +101,52 @@ Route::prefix('nations')->group(function () {
 
 Route::prefix('artists')->group(function () {
     Route::get('list','ArtistController@getList');
-	//nation/edit
+	//artists/edit
 	Route::get('edit/{id}','ArtistController@getEdit');
 	Route::post('edit/{id}','ArtistController@postEdit');
-	//nation/add
+	//artists/add
 	Route::get('add','ArtistController@getAdd');
 	Route::post('add','ArtistController@postAdd');
-	//nation/delete/1
+	//artists/delete/1
 	Route::get('delete/{id}','ArtistController@getDelete');
+	//artists/1/detail
+	Route::get('{id}/detail','ArtistController@getDetail');
 });
 
 Route::prefix('songs')->group(function () {
     Route::get('list','SongController@getList');
-	//nation/edit
+	//songs/edit
 	Route::get('edit/{id}','SongController@getEdit');
 	Route::post('edit/{id}','SongController@postEdit');
-	//nation/add
+	//songs/add
 	Route::get('add','SongController@getAdd');
 	Route::post('add','SongController@postAdd');
-	//nation/delete/1
+	//songs/delete/1
 	Route::get('delete/{id}','SongController@getDelete');
+	//songs/1/detail
+	Route::get('{id}/detail','SongController@getDetail');
+});
+
+Route::prefix('playlists')->group(function () {
+    Route::get('list','PlaylistController@getList');
+	//playlist/edit
+	Route::get('edit/{id}','PlaylistController@getEdit');
+	Route::post('edit/{id}','PlaylistController@postEdit');
+	//playlist/add
+	Route::get('add','PlaylistController@getAdd');
+	Route::post('add','PlaylistController@postAdd');
+	//playlist/delete/1
+	Route::get('delete/{id}','PlaylistController@getDelete');
+	//playlist/1/detail
+	Route::get('{id}/detail','PlaylistController@getDetail');
+	//add song to playlist
+	Route::post('{id}/addSong','PlaylistController@postAddSong');
+	//delete song in playlist
+	Route::get('{idList}/delSong/{idSong}','PlaylistController@getDeleteSong');
+});
+
+Route::prefix('comments')->group(function () {
+    Route::get('list','CommentController@getList');
+	//playlist/delete/1
+	Route::get('delete/{id}','CommentController@getDelete');
 });

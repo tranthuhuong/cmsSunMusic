@@ -7,6 +7,10 @@ use App\Nation;
 class NationController extends Controller
 {
      //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function getList(){
     	$nations=Nation::all();
     	return view('nations.nation_list',['nations'=>$nations]);

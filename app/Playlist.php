@@ -13,11 +13,11 @@ class Playlist extends Model
     protected $primaryKey = 'playlist_id';
 
     public function user(){
-        return $this->belongsTo('App\User','id','uid');
+        return $this->belongsTo('App\User','uid','id');
 
     }
     public function songs(){
     	//'App\Songlist' model trung gian 
-        return $this->hasManyThrough('App\Song','App\Songlist','playlist_id','song_id','playlist_id');
+        return $this->hasManyThrough('App\Song','App\Songlist','playlist_id','song_id','playlist_id');    
     }
 }

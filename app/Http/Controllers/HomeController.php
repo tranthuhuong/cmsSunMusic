@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Nation;
+use App\Kind;
+use App\Artist;
+use App\Song;
+use App\Singersong;
+use App\Author_song;
+use App\Kind_song;
 
 class HomeController extends Controller
 {
@@ -23,8 +30,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        return view('home');
+        $songs=Song::all(); 
+        return view('home',['songs'=>$songs]);
     }
    
 }

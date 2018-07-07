@@ -78,7 +78,7 @@
                                 
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <input type="submit">
+                                        <input type="submit" class="btn btn-primary">
                                         
                                     </div>
                                 </div>

@@ -12,9 +12,8 @@
     <base href="{{asset('')}}">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="img/logoSunMusic_white.png">
-    <title>SunMusic</title>
+    <title> @yield('title')</title>
     <!-- Bootstrap Core CSS -->
-
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
    
     <!-- Custom CSS -->
@@ -36,7 +35,7 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- Logo -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="home">
                         <!-- Logo icon -->
                         <b><img src="img/logoSunMusic_white.png" alt="homepage" class="dark-logo" style="width: 30px;" /></b>
                         <!--End Logo icon -->
@@ -143,6 +142,11 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="nations/list">Danh sách</a></li>
                                 <li><a href="nations/add">Thêm mới</a></li>
+                            </ul>
+                        </li>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-commenting-o "></i><span class="hide-menu">Bình luận</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="comments/list">Danh sách</a></li>
                             </ul>
                         </li>
                         <li class="nav-label">Thống kê</li>

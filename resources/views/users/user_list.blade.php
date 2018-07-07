@@ -23,6 +23,12 @@
                     <div class="card-body">
                         <h4 class="card-title">Danh sách Thành viên</h4>
                         <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                         @if(session('thongbao'))
+                           <div class="alert alert-primary alert-dismissible fade show">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <strong>Thông báo!</strong> {{session('thongbao')}}
+                            </div>
+                        @endif
                         <div class="table-responsive m-t-40">
                             <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
@@ -52,12 +58,12 @@
                                     <tr>
                                         <td class="text-center"><img src="{{$user->image}}" class="img-user-list" /></td>
                                         <td>{{$user->id}}</td>
-                                        <td>{{$user->name}}</td>
+                                        <td><a href="users/{{$user->id}}/detail">{{$user->name}}</a></td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->jurisdiction->jurisdiction_name}}</td>
                                         <td>{{$user->created_at}}</td>
                                         <td>
-                                            <a href="users/delete" class="btn btn-danger"> <span class="fa fa-close"></span> </a>
+                                            <a href="users/delete/{{$user->id}}" class="btn btn-danger"> <span class="fa fa-close"></span> </a>
                                             <a href="users/edit/{{$user->id}}" class="btn btn-primary"><span class="fa fa-edit"></span></a>
                                         </td>
                                     </tr>

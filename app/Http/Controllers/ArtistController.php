@@ -11,7 +11,7 @@ class ArtistController extends Controller
     	$artists=Artist::all();
     	return view('artists.Artists_list',['artists'=>$artists]);
     }
-     public function getEdit($id){
+    public function getEdit($id){
     	$artist=Artist::find($id);
     	$nations=Nation::all();
     	return view('artists.Artist_edit',['artist'=>$artist,'nations'=>$nations]);
@@ -57,9 +57,16 @@ class ArtistController extends Controller
 		$Artist->save();
 		return redirect('artists/add')->with('thongbao','Tạo thành công '.$Artist->Artist_name);
     }
+
     public function getDelete($id){
         $Artist=Artist::find($id);
         $Artist->delete();
         return redirect('artists/list')->with('thongbao','Xóa thành công '.$Artist->Artist_name);
+    }
+
+    public function getDetail($id){
+        $artist=Artist::find($id);
+        
+        return view('artists.artist_detail',['artist'=>$artist]);
     }
 }

@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
          //$this->call(JurisdictionSeeder::class);
-        $this->call(ArtistSeeder::class);
+        $this->call(UserSeeder::class);
     }
    }
     class JurisdictionSeeder extends Seeder
@@ -35,4 +35,24 @@ class DatabaseSeeder extends Seeder
             ]);
         }
     }
+        class StatusSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('status')->insert([
+            ['status_id'=>0,'status_name'=>'hoạt động'],
+            ['status_id'=>1,'status_name'=>'không hoạt động']
+        ]);
+    }
+}
+class UserSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('users')->insert([
+            ['id'=>'admin','name'=>'Admin','email'=>'sunmusic.tttn@gmail.com','password'=>bcrypt('huong'),'jurisdiction_id'=>0,'status_id'=>0]
+        ]);
+    }
+}
+
 

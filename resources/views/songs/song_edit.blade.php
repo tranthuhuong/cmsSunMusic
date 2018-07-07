@@ -109,7 +109,11 @@
                                         <select class="form-control" id="val-skill" name="kind_id">
                                            
                                            @foreach($kinds as $kind)
-                                                 <option value="{{$kind->kind_id}}">{{$kind->kind_name}}</option>
+                                                 <option 
+                                                    @if($song->kind_id==$kind->kind_id)
+                                                    {{"selected"}}
+                                                    @endif
+                                                 value="{{$kind->kind_id}}">{{$kind->kind_name}}</option>
                                            @endforeach
                                         </select>
                                     </div>

@@ -8,6 +8,10 @@ use App\Kind;
 class KindController extends Controller
 {
      //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function getList(){
     	$kinds=Kind::all();
     	return view('kinds.kind_list',['kinds'=>$kinds]);

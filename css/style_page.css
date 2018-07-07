@@ -14,3 +14,8 @@
 #info_summary{
 	height: 150px;
 }
+.img_profile{
+	width: 100px;
+	border:1px solid;
+	border-radius: 50px;
+}

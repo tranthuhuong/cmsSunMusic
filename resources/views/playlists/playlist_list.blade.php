@@ -9,7 +9,7 @@
             <h3 class="text-primary">Dashboard</h3> </div>
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Artists</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">playlists</a></li>
                 <li class="breadcrumb-item active">List</li>
             </ol>
         </div>
@@ -21,10 +21,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Danh sách Nghệ sĩ</h4>
+                        <h4 class="card-title">Danh sách Playlist</h4>
+
                         <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                          @if(session('thongbao'))
-                            <div class="alert alert-primary alert-dismissible fade show">
+                           <div class="alert alert-primary alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <strong>Thông báo!</strong> {{session('thongbao')}}
                             </div>
@@ -34,43 +35,42 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Hình bìa</th>
                                         <th>id</th>
-                                        <th>Tên</th>
-                                        <th>Tóm tắt</th>
-                                        <th>Quốc gia</th>
-                                        <th>Bài hát</th>
-                                        <th>Ngày tạo</th>
+                                        <th>Tên Playlist</th>
+                                        <th>Người tạo</th>
+                                        <th>Số lượng bài</th>
+                                        <th>Số người xem</th>
+                                        <th>Thời gian tạo</th>
                                         <th>Thao tác</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                       <th>#</th>
-                                       <th>Hình bìa</th>
+                                        <th>#</th>
                                         <th>id</th>
-                                        <th>Tên</th>
-                                        <th>Tóm tắt</th>
-                                        <th>Quốc gia</th>
-                                        <th>Bài hát</th>
-                                        <th>Ngày tạo</th>
+                                        <th>Tên Playlist</th>
+                                        <th>Người tạo</th>
+                                        <th>Số lượng bài</th>
+                                        <th>Số người xem</th>
+                                        <th>Thời gian tạo</th>
                                         <th>Thao tác</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach($artists as $artist)
+                                    @foreach($playlists as $playlist)
                                     <tr>
-                                        <td class="text-center"><img src="{{$artist->artist_image}}" class="img-user-list" /></td>
-                                        <td class="text-center"><img src="{{$artist->cover_img}}" class="img-cover-list" /></td>
-                                        <td>{{$artist->artist_id}}</td>
-                                        <td><a href="artists/{{$artist->artist_id}}/detail">{{$artist->artist_name}}</a></td>
-                                        <td ><div class="artist_info">{{$artist->info_summary}}</div></td>
-                                         <td>{{$artist->nation->nation_name}}</td>
-                                        <td>{{$artist->songsinger->count()}}</td>
-                                        <td>{{$artist->created_at}}</td>
+                                         <td >
+                                            <img src="{{$playlist->playlist_image}}" alt="" style="width: 100px;">
+                                        </td>
+                                        <td>{{$playlist->playlist_id}}</td>
+                                        <td><a href="playlists/{{$playlist->playlist_id}}/detail">{{$playlist->name_playlist}}</a></td>
+                                        <td><a href="users/{{$playlist->user->id}}/detail">{{$playlist->user->id}}</a></td>
+                                        <td>{{$playlist->songs->count()}}</td>
+                                        <td>{{$playlist->amount_view}}</td>
+                                        <td>{{$playlist->created_at}}</td>
                                         <td>
-                                            <a href="artists/delete/{{$artist->artist_id}}" class="btn btn-danger"> <span class="fa fa-close"></span> </a>
-                                            <a href="artists/edit/{{$artist->artist_id}}" class="btn btn-primary"><span class="fa fa-edit"></span></a>
+                                            <a href="playlists/delete/{{$playlist->playlist_id}}" class="btn btn-danger"> <span class="fa fa-close"></span> </a>
+                                            <a href="playlists/edit/{{$playlist->playlist_id}}" class="btn btn-primary"><span class="fa fa-edit"></span></a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -82,28 +82,6 @@
             </div>
         </div>
         <!-- End PAge Content -->
-        <div class="modal" tabindex="-1" role="dialog" id="d1">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#d1">
-  Launch demo modal
-</button>
     </div>
 @endsection
 @section('plugin')
@@ -116,7 +94,7 @@
     <!--Custom JavaScript -->
     <script src="js/custom.min.js"></script>
 
-
+    <script src="js/lib/toastr/toastr.min.js"></script>
     <script src="js/lib/datatables/datatables.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
