@@ -34,12 +34,12 @@
                                 {{session('thongbao')}}
                             </div>
                         @endif
-                            {!! Form::open(['url' => 'artists/add']) !!}
+                            {!! Form::open(['url' => 'artists']) !!}
 
                             {!! Form::close() !!}
-                            <form class="form-valide" action="artists/add" method="post">
+                            
+                            <form class="form-valide" method="POST" action="artists" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-name">Tên Nghệ sĩ <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -61,21 +61,23 @@
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-img">Hình ảnh <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="val-img" name="artist_image" placeholder="Nhập hình ảnh..">
+                                        <input type="file" id="i_file" value="" name="imagefile">
+                                        {{-- <input type="text" class="form-control" id="val-img" name="artist_image" placeholder="Nhập hình ảnh.."> --}}
                                     </div>
                                 </div>
                                 
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-cover">Hình bìa <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="val-cover" name="  cover_img" placeholder="Nhập hình ảnh..">
+                                        {{-- <input type="text" class="form-control" id="val-cover" name="  cover_img" placeholder="Nhập hình ảnh.."> --}}
+                                        <input type="file" id="i_file" value="" name="imagefile">
                                     </div>
                                 </div>
                                 
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-sumary">Tiểu sử <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <textarea name="info_summary"class="form-control"></textarea>
+                                        <textarea name="info_summary" class="form-control"></textarea>
                                     </div>
                                 </div>
 

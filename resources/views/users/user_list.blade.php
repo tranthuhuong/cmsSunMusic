@@ -58,13 +58,18 @@
                                     <tr>
                                         <td class="text-center"><img src="{{$user->image}}" class="img-user-list" /></td>
                                         <td>{{$user->id}}</td>
-                                        <td><a href="users/{{$user->id}}/detail">{{$user->name}}</a></td>
+                                        <td><a href="users/{{$user->id}}">{{$user->name}}</a></td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->jurisdiction->jurisdiction_name}}</td>
                                         <td>{{$user->created_at}}</td>
                                         <td>
-                                            <a href="users/delete/{{$user->id}}" class="btn btn-danger"> <span class="fa fa-close"></span> </a>
-                                            <a href="users/edit/{{$user->id}}" class="btn btn-primary"><span class="fa fa-edit"></span></a>
+                                           <a href="" class="btn btn-danger" onclick="event.preventDefault();
+                                                     document.getElementById('{{$user->id}}').submit(); " > <span class="fa fa-close"></span> </a>
+                                            <form id="{{$user->id}}" action="users/{{$user->id}}" method="POST" style="display: none;">
+                                                @csrf
+                                                {{ method_field('DELETE') }}
+                                            </form>
+                                            <a href="users/{{$user->id}}/edit" class="btn btn-primary"><span class="fa fa-edit"></span></a>
                                         </td>
                                     </tr>
                                     @endforeach

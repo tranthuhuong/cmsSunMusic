@@ -36,11 +36,9 @@
                                 <strong>Thông báo!</strong> {{session('thongbao')}}
                             </div>
                         @endif
-                            {!! Form::open(['url' => 'playlists/add']) !!}
-
-                            {!! Form::close() !!}
-                        <form class="form-valide" action="playlists/edit/{{$playlist->playlist_id}}" method="post">
+                        <form class="form-valide" action="playlists/{{$playlist->playlist_id}}" method="post">
                             @csrf
+                            {{ method_field('PUT') }}
                             <div class="form-group row">
                                     <label class="col-lg-4 col-form-label">Id <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">

@@ -37,7 +37,7 @@
                             {!! Form::open(['url' => 'users/add']) !!}
 
                             {!! Form::close() !!}
-                            <form class="form-valide" action="users/add" method="post">
+                            <form class="form-valide" action="users" method="post">
                                 @csrf
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <div class="form-group row">

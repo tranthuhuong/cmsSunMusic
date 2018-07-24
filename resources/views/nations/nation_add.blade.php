@@ -35,10 +35,10 @@
                                 <strong>Thông báo!</strong> {{session('thongbao')}}
                             </div>
                         @endif
-                            {!! Form::open(['url' => 'nations/add']) !!}
+                            {!! Form::open(['url' => 'nations']) !!}
 
                             {!! Form::close() !!}
-                            <form class="form-valide" action="nations/add" method="post">
+                            <form class="form-valide" action="nations" method="post">
                                 @csrf
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <div class="form-group row">

@@ -84,8 +84,13 @@
                                         <td>{{$song->nation->nation_name}}</td>
                                         <td>{{$song->amount_view}}</td>
                                         <td>
-                                            <a href="songs/delete/{{$song->song_id}}" class="btn btn-danger"> <span class="fa fa-close"></span> </a>
-                                            <a href="songs/edit/{{$song->song_id}}" class="btn btn-primary"><span class="fa fa-edit"></span></a>
+                                            <a href="" class="btn btn-danger" onclick="event.preventDefault();
+                                                     document.getElementById('{{$song->song_id}}').submit(); " > <span class="fa fa-close"></span> </a>
+                                            <form id="{{$song->song_id}}" action="songs/{{$song->song_id}}" method="POST" style="display: none;">
+                                                @csrf
+                                                {{ method_field('DELETE') }}
+                                            </form>
+                                            <a href="songs/{{$song->song_id}}/edit" class="btn btn-primary"><span class="fa fa-edit"></span></a>
                                         </td>
                                     </tr>
                                     @endforeach

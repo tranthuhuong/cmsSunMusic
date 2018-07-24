@@ -16,15 +16,15 @@ class PlaylistController extends Controller
     {
         $this->middleware('auth');
     }
-    public function getList(){
+    public function index(){
     	$playlists=Playlist::all();
     	return view('playlists.playlist_list',['playlists'=>$playlists]);
     }
 
-    public function getAdd(){
+    public function create(){
     	return view('playlists.playlist_add');
     }
-    public function postAdd(Request $request){
+    public function store(Request $request){
     	$this->validate($request,
     		[
     			'playlist_name'=>'required|min:3|max:80'
@@ -37,21 +37,22 @@ class PlaylistController extends Controller
     	$playlist->name_playlist=$request->playlist_name;
     	$playlist->playlist_image=$request->playlist_image;
     	$playlist->uid=Auth::user()->id;
-
 		$playlist->save();
-		return redirect('playlists/add')->with('thongbao','Tạo thành công '.$playlist->name_playlist);
+		return redirect('playlists/create')->with('thongbao','Tạo thành công '.$playlist->name_playlist);
     }
-     public function getDelete($id){
+     public function destroy($id){
+        $songlist=Songlist::where('playlist_id',$id);
+        $songlist->delete();
         $playlist=Playlist::find($id);
         $playlist->delete();
-        return redirect('playlists/list')->with('thongbao','Xóa thành công '.$playlist->playlists_id);
+        return redirect('playlists')->with('thongbao','Xóa thành công '.$playlist->playlists_id);
     }
 
-    public function getEdit($id){
+    public function edit($id){
         $playlist=Playlist::find($id);
         return view('playlists.playlist_edit',['playlist'=>$playlist]);
     }
-    public function postEdit(Request $request,$id){
+    public function update(Request $request,$id){
         $playlist=Playlist::find($id);
         $this->validate($request,
             [
@@ -64,9 +65,9 @@ class PlaylistController extends Controller
         $playlist->name_playlist=$request->playlist_name;
     	$playlist->playlist_image=$request->playlist_image;
         $playlist->save();
-        return redirect('playlists/list')->with('thongbao','Sửa thành công '.$playlist->name_playlist);
+        return redirect('playlists')->with('thongbao','Sửa thành công '.$playlist->name_playlist);
     }
-    public function getDetail($id){
+    public function show($id){
     	$playlist=Playlist::find($id);
     	$songs=Song::all();
         // $songs= DB:: table('songs')
@@ -88,7 +89,7 @@ class PlaylistController extends Controller
     	$songlist->playlist_id=$id;
     	$songlist->save();
 
-    	return redirect('playlists/'.$id.'/detail')->with('messList','Thêm thành công');
+    	return redirect('playlists/'.$id)->with('messList','Thêm thành công');
 
     }
         //function delete song in playlist
@@ -98,7 +99,7 @@ class PlaylistController extends Controller
         $songlist=Songlist::where('song_id', $idSong)
           ->where('playlist_id', $idList)
           ->delete();
-        return redirect('playlists/'.$idList.'/detail')->with('messList','Xóa thành công');
+        return redirect('playlists/'.$idList)->with('messList','Xóa thành công');
     }
 
 }

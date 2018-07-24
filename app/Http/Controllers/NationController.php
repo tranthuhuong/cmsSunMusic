@@ -11,15 +11,15 @@ class NationController extends Controller
     {
         $this->middleware('auth');
     }
-    public function getList(){
+    public function index(){
     	$nations=Nation::all();
     	return view('nations.nation_list',['nations'=>$nations]);
     }
-     public function getEdit($id){
+     public function edit($id){
     	$nation=Nation::find($id);
     	return view('nations.nation_edit',['nation'=>$nation]);
     }
-    public function postEdit(Request $request,$id){
+    public function update(Request $request,$id){
     	$nation=Nation::find($id);
     	$this->validate($request,
     		[
@@ -31,13 +31,13 @@ class NationController extends Controller
     		]);
     	$nation->nation_name=$request->nation_name;
 		$nation->save();
-		return redirect('nations/list')->with('thongbao','Sửa thành công '.$nation->nation_name);
+		return redirect('nations')->with('thongbao','Sửa thành công '.$nation->nation_name);
     }
 
-    public function getAdd(){
+    public function create(){
     	return view('nations.nation_add');
     }
-    public function postAdd(Request $request){
+    public function store(Request $request){
     	$this->validate($request,
     		[
     			'nation_name'=>'required|min:4|max:80'
@@ -49,11 +49,11 @@ class NationController extends Controller
     	$nation=new Nation;
     	$nation->nation_name=$request->nation_name;
 		$nation->save();
-		return redirect('nations/add')->with('thongbao','Tạo thành công '.$nation->nation_name);
+		return redirect('nations/create')->with('thongbao','Tạo thành công '.$nation->nation_name);
     }
-    public function getDelete($id){
+    public function destroy($id){
         $nation=Nation::find($id);
         $nation->delete();
-        return redirect('nations/list')->with('thongbao','Xóa thành công '.$nation->nation_name);
+        return redirect('nations')->with('thongbao','Xóa thành công '.$nation->nation_name);
     }
 }

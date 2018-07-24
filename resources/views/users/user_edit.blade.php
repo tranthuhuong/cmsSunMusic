@@ -36,11 +36,9 @@
                                     {{session('thongbao')}}
                                 </div>
                             @endif
-                            {!! Form::open(['url' => 'users/edit']) !!}
-
-                            {!! Form::close() !!}
-                            <form class="form-valide" action="users/edit/{{$user->id}}" method="post">
+                            <form class="form-valide" action="users/{{$user->id}}" method="POST">
                                 @csrf
+                                {{ method_field('PUT') }}
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-username">Id <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">

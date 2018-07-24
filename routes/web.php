@@ -25,7 +25,7 @@ Route::post('checklogin','AuthController@login')->name('checklogin');
 
 Route::get('/addCollum',function(){
 	Schema::table('kinds',function($table){
-		$table -> string('short_name');
+		$table->renameColumn('short_name', 'description');
 	});
 });
 
@@ -57,88 +57,34 @@ Route::POST('login','AuthController@login')->name('check-login');
 //route logout
 Route::get('logout','AuthController@logout')->name('logout');
 
-Route::get('/test',function(){
-	return view('users.user_edit');
-});
 //nhóm route user
-Route::prefix('users')->group(function () {
-    Route::get('list','UsersController@getList');
-    //users/edit
-    Route::get('edit/{id}','UsersController@getEdit');
-	Route::post('edit/{id}','UsersController@postEdit');
-	//users/add
-	Route::get('add','UsersController@getAdd');
-	Route::post('add','UsersController@postAdd');
-	//users/delete/1
-	Route::get('delete/{id}','UsersController@getDelete');
-	//users/1/detail
-	Route::get('{id}/detail','UsersController@getDetail');
-});
+// Route::prefix('users')->group(function () {
+//     Route::get('list','UsersController@getList');
+//     //users/edit
+//     Route::get('edit/{id}','UsersController@getEdit');
+// 	Route::post('edit/{id}','UsersController@postEdit');
+// 	//users/add
+// 	Route::get('add','UsersController@getAdd');
+// 	Route::post('add','UsersController@postAdd');
+// 	//users/delete/1
+// 	Route::get('delete/{id}','UsersController@getDelete');
+// 	//users/1/detail
+// 	Route::get('{id}/detail','UsersController@getDetail');
+// });
 
-Route::prefix('kinds')->group(function () {
-    Route::get('list','KindController@getList');
-	//kinds/edit
-	Route::get('edit/{id}','KindController@getEdit');
-	Route::post('edit/{id}','KindController@postEdit');
-	//kinds/add
-	Route::get('add','KindController@getAdd');
-	Route::post('add','KindController@postAdd');
-	//kinds/delete/1
-	Route::get('delete/{id}','KindController@getDelete');
-});
+Route::resource('users', 'UsersController');
 
-Route::prefix('nations')->group(function () {
-    Route::get('list','NationController@getList');
-	//nation/edit
-	Route::get('edit/{id}','NationController@getEdit');
-	Route::post('edit/{id}','NationController@postEdit');
-	//nation/add
-	Route::get('add','NationController@getAdd');
-	Route::post('add','NationController@postAdd');
-	//nation/delete/1
-	Route::get('delete/{id}','NationController@getDelete');
-});
+Route::resource('nations', 'NationController');
 
-Route::prefix('artists')->group(function () {
-    Route::get('list','ArtistController@getList');
-	//artists/edit
-	Route::get('edit/{id}','ArtistController@getEdit');
-	Route::post('edit/{id}','ArtistController@postEdit');
-	//artists/add
-	Route::get('add','ArtistController@getAdd');
-	Route::post('add','ArtistController@postAdd');
-	//artists/delete/1
-	Route::get('delete/{id}','ArtistController@getDelete');
-	//artists/1/detail
-	Route::get('{id}/detail','ArtistController@getDetail');
-});
+Route::resource('artists', 'ArtistController');
 
-Route::prefix('songs')->group(function () {
-    Route::get('list','SongController@getList');
-	//songs/edit
-	Route::get('edit/{id}','SongController@getEdit');
-	Route::post('edit/{id}','SongController@postEdit');
-	//songs/add
-	Route::get('add','SongController@getAdd');
-	Route::post('add','SongController@postAdd');
-	//songs/delete/1
-	Route::get('delete/{id}','SongController@getDelete');
-	//songs/1/detail
-	Route::get('{id}/detail','SongController@getDetail');
-});
+Route::resource('kinds', 'KindController');
+
+Route::resource('playlists', 'PlaylistController');
+
+Route::resource('songs', 'SongController');
 
 Route::prefix('playlists')->group(function () {
-    Route::get('list','PlaylistController@getList');
-	//playlist/edit
-	Route::get('edit/{id}','PlaylistController@getEdit');
-	Route::post('edit/{id}','PlaylistController@postEdit');
-	//playlist/add
-	Route::get('add','PlaylistController@getAdd');
-	Route::post('add','PlaylistController@postAdd');
-	//playlist/delete/1
-	Route::get('delete/{id}','PlaylistController@getDelete');
-	//playlist/1/detail
-	Route::get('{id}/detail','PlaylistController@getDetail');
 	//add song to playlist
 	Route::post('{id}/addSong','PlaylistController@postAddSong');
 	//delete song in playlist
@@ -150,3 +96,82 @@ Route::prefix('comments')->group(function () {
 	//playlist/delete/1
 	Route::get('delete/{id}','CommentController@getDelete');
 });
+
+
+
+
+
+
+
+
+
+
+
+
+//put to drive
+Route::get('put', function() {
+    Storage::cloud()->put('testh.txt', 'Hello World');
+    return 'File was saved to Google Drive';
+});
+// Shows a list of files in the users' Google drive
+Route::get('/files', 'AdminController@files');
+
+Route::get('put-existing', function() {
+    $filePath = public_path('..\index.php');
+    $fileData = File::get($filePath);
+    $filename="hí hí hihi";
+    Storage::cloud()->put($filename, $fileData);
+    $dir = '/';
+    $recursive = false; // Get subdirectories also?
+    $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+    $file = $contents
+        ->where('type', '=', 'file')
+        ->where('filename', '=', pathinfo($filename, PATHINFO_FILENAME))
+        ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
+        ->first(); // there can be duplicate file names!
+
+    return  $file['path'];
+});
+Route::get('list', function() {
+    $dir = '/';
+    $recursive = false; // Có lấy file trong các thư mục con không?
+    $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+    return $contents->where('type', '=', 'file');
+});
+//down load file theo teen
+Route::get('get', function() {
+    $filename = 'Quan-Trong-La-Than-Thai-OnlyC-Karik.mp3';
+    $dir = '/';
+    $recursive = false; // Có lấy file trong các thư mục con không?
+    $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+    $file = $contents
+        ->where('type', '=', 'file')
+        ->where('filename', '=', pathinfo($filename, PATHINFO_FILENAME))
+        ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
+        ->first(); // có thể bị trùng tên file với nhau!
+    //return $file; // array with file info
+    $rawData = Storage::cloud()->get($file['path']);
+    $targetFile = storage_path ("đã tải xuống - {$filename}"); 
+    return response($rawData, 200)
+        ->header('Content-Type', $file['mimetype'])
+        ->header('Content-Disposition', "attachment; filename='$filename'");
+});
+
+Route::get('delete', function() {
+    $filename = 'test.txt';
+    // Tìm file và sử dụng ID (path) của nó để xóa
+    $dir = '/';
+    $recursive = false; //  Có lấy file trong các thư mục con không?
+    $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+    $file = $contents
+        ->where('type', '=', 'file')
+        ->where('filename', '=', pathinfo($filename, PATHINFO_FILENAME))
+        ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
+        ->first(); // có thể bị trùng tên file với nhau!
+    Storage::cloud()->delete($file['path']);
+    return 'File was deleted from Google Drive';
+});
+
+// Allows the user to upload new files
+Route::get('upload', 'AdminController@upload');
+Route::post('upload', 'AdminController@doUploadFileImage');

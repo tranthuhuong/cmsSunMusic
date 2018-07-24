@@ -63,8 +63,13 @@
                                         <td>{{$kind->songs->count()}}</td>
                                         <td>{{$kind->created_at}}</td>
                                         <td>
-                                            <a href="kinds/delete/{{$kind->kind_id}}" class="btn btn-danger"> <span class="fa fa-close"></span> </a>
-                                            <a href="kinds/edit/{{$kind->kind_id}}" class="btn btn-primary"><span class="fa fa-edit"></span></a>
+                                             <a href="" class="btn btn-danger" onclick="event.preventDefault();
+                                                     document.getElementById('{{$kind->kind_id}}').submit(); " > <span class="fa fa-close"></span> </a>
+                                            <form id="{{$kind->kind_id}}" action="kinds/{{$kind->kind_id}}" method="POST" style="display: none;">
+                                                @csrf
+                                                {{ method_field('DELETE') }}
+                                            </form>
+                                            <a href="kinds/{{$kind->kind_id}}/edit" class="btn btn-primary"><span class="fa fa-edit"></span></a>
                                         </td>
                                     </tr>
                                     @endforeach

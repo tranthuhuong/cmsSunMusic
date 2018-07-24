@@ -63,14 +63,19 @@
                                             <img src="{{$playlist->playlist_image}}" alt="" style="width: 100px;">
                                         </td>
                                         <td>{{$playlist->playlist_id}}</td>
-                                        <td><a href="playlists/{{$playlist->playlist_id}}/detail">{{$playlist->name_playlist}}</a></td>
-                                        <td><a href="users/{{$playlist->user->id}}/detail">{{$playlist->user->id}}</a></td>
+                                        <td><a href="playlists/{{$playlist->playlist_id}}">{{$playlist->name_playlist}}</a></td>
+                                        <td><a href="users/{{$playlist->user->id}}">{{$playlist->user->id}}</a></td>
                                         <td>{{$playlist->songs->count()}}</td>
                                         <td>{{$playlist->amount_view}}</td>
                                         <td>{{$playlist->created_at}}</td>
                                         <td>
-                                            <a href="playlists/delete/{{$playlist->playlist_id}}" class="btn btn-danger"> <span class="fa fa-close"></span> </a>
-                                            <a href="playlists/edit/{{$playlist->playlist_id}}" class="btn btn-primary"><span class="fa fa-edit"></span></a>
+                                            <a href="" class="btn btn-danger" onclick="event.preventDefault();
+                                                     document.getElementById('{{$playlist->playlist_id}}').submit(); " > <span class="fa fa-close"></span> </a>
+                                            <form id="{{$playlist->playlist_id}}" action="playlists/{{$playlist->playlist_id}}" method="POST" style="display: none;">
+                                                @csrf
+                                                {{ method_field('DELETE') }}
+                                            </form>
+                                            <a href="playlists/{{$playlist->playlist_id}}/edit" class="btn btn-primary"><span class="fa fa-edit"></span></a>
                                         </td>
                                     </tr>
                                     @endforeach

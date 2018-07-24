@@ -7,16 +7,21 @@ use App\Artist;
 use App\Nation;
 class ArtistController extends Controller
 {
-    public function getList(){
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    public function index(){
     	$artists=Artist::all();
     	return view('artists.Artists_list',['artists'=>$artists]);
     }
-    public function getEdit($id){
+    public function edit($id){
     	$artist=Artist::find($id);
     	$nations=Nation::all();
     	return view('artists.Artist_edit',['artist'=>$artist,'nations'=>$nations]);
     }
-    public function postEdit(Request $request,$id){
+    public function update(Request $request,$id){
     	$Artist=Artist::find($id);
     	$this->validate($request,
     		[
@@ -35,11 +40,13 @@ class ArtistController extends Controller
 		return redirect('artists/list')->with('thongbao','Sửa thành công '.$Artist->Artist_name);
     }
 
-    public function getAdd(){
+    //get add
+    public function create(){
     	$nations=Nation::all();
     	return view('artists.Artist_add',['nations'=>$nations]);
     }
-    public function postAdd(Request $request){
+    //postAdd
+    public function store(Request $request){
     	$this->validate($request,
     		[
     			'name'=>'required|min:3|max:80'
@@ -55,18 +62,18 @@ class ArtistController extends Controller
     	$Artist->artist_image=$request->artist_image;
     	$Artist->info_summary=$request->info_summary;
 		$Artist->save();
-		return redirect('artists/add')->with('thongbao','Tạo thành công '.$Artist->Artist_name);
+		return redirect('artists')->with('thongbao','Tạo thành công '.$Artist->Artist_name);
     }
 
-    public function getDelete($id){
+    public function destroy($id){
         $Artist=Artist::find($id);
         $Artist->delete();
-        return redirect('artists/list')->with('thongbao','Xóa thành công '.$Artist->Artist_name);
+        return redirect('artists')->with('thongbao','Xóa thành công '.$Artist->Artist_name);
     }
 
-    public function getDetail($id){
+//getDetail
+    public function show($id){
         $artist=Artist::find($id);
-        
         return view('artists.artist_detail',['artist'=>$artist]);
     }
 }

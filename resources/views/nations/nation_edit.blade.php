@@ -36,11 +36,9 @@
                                 <strong>Thông báo!</strong> {{session('thongbao')}}
                             </div>
                         @endif
-                            {!! Form::open(['url' => 'nations/add']) !!}
-
-                            {!! Form::close() !!}
-                            <form class="form-valide" action="nations/edit/{{$nation->nation_id}}" method="post">
+                            <form class="form-valide" action="nations/{{$nation->nation_id}}" method="post">
                                 @csrf
+                                {{ method_field('PUT') }}
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-name">Tên quốc gia <span class="text-danger">*</span></label>

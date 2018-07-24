@@ -24,7 +24,7 @@
                     <div class="card-body">
                         <div class="card-two text-center">
                             <h2 class="card-title"><strong>Thông tin Bài hát</strong> 
-                                <a href="songs/edit/{{$song->song_id}}" class="btn btn-primary"><span class="fa fa-edit"></span></a>
+                                <a href="songs/{{$song->song_id}}/edit" class="btn btn-primary"><span class="fa fa-edit"></span></a>
                             </h2> 
                             <img src="{{$song->song_image}}" alt="">
                             <br><br>

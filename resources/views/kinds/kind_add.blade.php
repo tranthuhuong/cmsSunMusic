@@ -35,10 +35,7 @@
                                 <strong>Thông báo!</strong> {{session('thongbao')}}
                             </div>
                         @endif
-                            {!! Form::open(['url' => 'nations/add']) !!}
-
-                            {!! Form::close() !!}
-                            <form class="form-valide" action="kinds/add" method="post">
+                            <form class="form-valide" method="POST" action="kinds" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <div class="form-group row">
@@ -50,7 +47,14 @@
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-name">Hình ảnh <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" name="kind_image" id="kind_image"  placeholder="Nhập Hình ánh">
+                                         <input type="file" id="i_file" value="" name="imagefile">
+                                        {{-- <input type="text" class="form-control" name="kind_image" id="kind_image"  placeholder="Nhập Hình ánh"> --}}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="val-name">Mô tả <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" name="description" id="description"  placeholder="Nhập mô tả">
                                     </div>
                                 </div>
                                 <div class="form-group row">

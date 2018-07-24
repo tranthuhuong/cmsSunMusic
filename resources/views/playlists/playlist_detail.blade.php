@@ -24,7 +24,7 @@
                     <div class="card-body">
                         <div class="card-two text-center">
                             <h2 class="card-title"><strong>Thông tin Playlist</strong> 
-                                <a href="playlists/edit/{{$playlist->playlist_id}}" class="btn btn-primary"><span class="fa fa-edit"></span></a>
+                                <a href="playlists/{{$playlist->playlist_id}}/edit" class="btn btn-primary"><span class="fa fa-edit"></span></a>
                             </h2> 
                             <img src="{{$playlist->playlist_image}}" alt="">
                             <br><br>
@@ -58,7 +58,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Danh sách Bài hát trong playlist</h4>
                         <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
-                        <a href="playlists/{{$playlist->playlist_id}}/detail#addsong" class="btn btn-success" >Thêm Bài hát vào Playist</a>
+                        <a href="playlists/{{$playlist->playlist_id}}#addsong" class="btn btn-success" >Thêm Bài hát vào Playist</a>
                          @if(session('messList'))
                            <div class="alert alert-warning alert-dismissible fade show" style="margin-top: 30px;">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

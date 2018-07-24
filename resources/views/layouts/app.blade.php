@@ -47,9 +47,6 @@
                 <div class="navbar-collapse">
                     <!-- toggle and nav items -->
                     <ul class="navbar-nav mr-auto mt-md-0">
-                        <!-- This is  -->
-                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
-                        <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                         
                     </ul>
                     <!-- User profile and search -->
@@ -62,10 +59,10 @@
                         @else
 
                         <!-- Search -->
-                        <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-search"></i></a>
+                        {{-- <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-search"></i></a>
                             <form class="app-search">
                                 <input type="text" class="form-control" placeholder="Search here"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
-                        </li>
+                        </li> --}}
                        
                         <!-- Profile -->
                         <li class="nav-item dropdown">
@@ -83,7 +80,7 @@
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
+                                        @csrf</form>
                                     </li>
                                 </ul>
                             </div>
@@ -110,38 +107,38 @@
                         <li class="nav-label">Quản lý</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-user-o"></i><span class="hide-menu">Thành viên</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="users/list">Danh sách</a></li>
-                                <li><a href="users/add">Thêm mới</a></li>
+                                <li><a href="users">Danh sách</a></li>
+                                <li><a href="users/create">Thêm mới</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-star"></i><span class="hide-menu">Nghệ sĩ</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="artists/list">Danh sách</a></li>
-                                <li><a href="artists/add">Thêm mới</a></li>
+                                <li><a href="artists">Danh sách</a></li>
+                                <li><a href="artists/create">Thêm mới</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-headphones  "></i><span class="hide-menu">Bài hát</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="songs/list">Danh sách</a></li>
-                                <li><a href="songs/add">Thêm mới</a></li>
+                                <li><a href="songs">Danh sách</a></li>
+                                <li><a href="songs/create">Thêm mới</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-play"></i><span class="hide-menu">Playlists</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="playlists/list">Danh sách</a></li>
-                                <li><a href="playlists/add">Thêm mới</a></li>
+                                <li><a href="playlists">Danh sách</a></li>
+                                <li><a href="playlists/create">Thêm mới</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-star"></i><span class="hide-menu">Thể loại</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="kinds/list">Danh sách</a></li>
-                                <li><a href="kinds/add">Thêm mới</a></li>
+                                <li><a href="kinds">Danh sách</a></li>
+                                <li><a href="kinds/create">Thêm mới</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-futbol-o "></i><span class="hide-menu">Quốc gia</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="nations/list">Danh sách</a></li>
-                                <li><a href="nations/add">Thêm mới</a></li>
+                                <li><a href="nations/">Danh sách</a></li>
+                                <li><a href="nations/create">Thêm mới</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-commenting-o "></i><span class="hide-menu">Bình luận</span></a>

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('css')
 <link href="css/style_page.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
 <!-- Bread crumb -->
@@ -21,7 +22,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Chỉnh sửa {{$song->song_name}}</h4>
+                        <h4 class="card-title">Thêm mới Bài hát</h4>
                         @if(count($errors)>0)
                             <div class="alert alert-danger">
                                 @foreach($errors->all() as $err)
@@ -35,11 +36,9 @@
                                 <strong>Thông báo!</strong> {{session('thongbao')}}
                             </div>
                         @endif
-                            {!! Form::open(['url' => 'songs/edit']) !!}
-
-                            {!! Form::close() !!}
-                            <form class="form-valide" action="songs/edit/{{$song->song_id}}" method="post">
+                            <form class="form-valide" action="songs/{{$song->song_id}}" method="post">
                                 @csrf
+                                {{ method_field('PUT') }}
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-name"> Tên bài hát <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -63,7 +62,7 @@
                                     <div class="col-lg-6">
                                         <select class="form-control" id="val-skill" name="nation_id">
                                            
-                                           @foreach($nations as $nation)
+                                            @foreach($nations as $nation)
                                                  <option 
                                                     @if($nation->nation_id==$song->nation_id)
                                                         {{"selected"}}
@@ -76,14 +75,16 @@
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="nation_id">Trình bày <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="val-skill" name="singer_id">
-                                           
-                                           @foreach($artists as $artist)
-                                                <option
-                                                    @if($artist->artist_id==$song->singer_id)
-                                                    {{"selected"}}
+                                        <select class="js-example-basic-multiple form-control" name="singer_id[]" multiple="multiple" >
+                                          @foreach($artists as $artist)
+                                            <option 
+                                                @foreach($song->singers as $singer)
+                                                    @if($artist->artist_id==$singer->artist_id)
+                                                    {{ "selected='selected'" }}
                                                     @endif
-                                                  value="{{$artist->artist_id}}">{{$artist->artist_name}}</option>
+                                                @endforeach
+                                                value="{{$artist->artist_id}}">
+                                                {{$artist->artist_name}}</option>
                                            @endforeach
                                         </select>
                                     </div>
@@ -91,14 +92,16 @@
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="nation_id">Sáng tác <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="val-skill" name="author_id">
-                                           
-                                           @foreach($artists as $artist)
-                                                 <option 
-                                                    @if($artist->artist_id==$song->author_id)
-                                                    {{"selected"}}
+                                        <select class="js-example-basic-multiple form-control" name="author_id[]" multiple="multiple" >
+                                          @foreach($artists as $artist)
+                                            <option 
+                                                @foreach($song->authors as $author)
+                                                    @if($artist->artist_id==$author->artist_id)
+                                                    {{ "selected='selected'" }}
                                                     @endif
-                                                 value="{{$artist->artist_id}}">{{$artist->artist_name}}</option>
+                                                @endforeach
+                                                value="{{$artist->artist_id}}">
+                                                {{$artist->artist_name}}</option>
                                            @endforeach
                                         </select>
                                     </div>
@@ -106,16 +109,19 @@
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="kind_id">Thể loại <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="val-skill" name="kind_id">
-                                           
-                                           @foreach($kinds as $kind)
-                                                 <option 
-                                                    @if($song->kind_id==$kind->kind_id)
-                                                    {{"selected"}}
+                                        <select class="js-example-basic-multiple form-control" name="kind_id[]" multiple="multiple" >
+                                            @foreach($kinds as $kind)
+                                            <option 
+                                                @foreach($song->kinds as $kind_song)
+                                                    @if($kind->kind_id==$kind_song->kind_id)
+                                                    {{ "selected='selected'" }}
                                                     @endif
-                                                 value="{{$kind->kind_id}}">{{$kind->kind_name}}</option>
+                                                @endforeach
+                                                value="{{$kind->kind_id}}">
+                                                {{$kind->kind_name}}</option>
                                            @endforeach
                                         </select>
+                                        
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -141,5 +147,10 @@
     <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
     <script src="js/custom.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+    });
+    </script>
 @endsection

@@ -25,6 +25,10 @@ return [
     | services your application utilizes. Set this in your ".env" file.
     |
     */
+    'allowedFileTypes'=>'jpg,jpeg,png,mp3',
+    'maxFileSize'=>4000000,
+    'typesImage'=>'jpg,jpeg,png',
+    'typesMusic'=>'mp3',
 
     'env' => env('APP_ENV', 'production'),
 
@@ -160,6 +164,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        App\Providers\GoogleDriveServiceProvider::class,
 
     ],
 

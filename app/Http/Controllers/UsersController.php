@@ -13,14 +13,14 @@ class UsersController extends Controller
     {
         $this->middleware('auth');
     }
-    public function getList(){
+    public function index(){
     	$users=User::all();
     	return view('users.user_list',['users'=>$users]);
     }
-    public function getAdd(){
+    public function create(){
     	return view('users.user_add');
     }
-    public function postAdd(Request $request){
+    public function store(Request $request){
     	$this->validate($request,
     		[
     			'id'=>'required|min:4|max:80'
@@ -37,14 +37,17 @@ class UsersController extends Controller
 		$user->jurisdiction_id=$request->jurisdiction;
         $user->status_id=0;
 		$user->save();
-		return redirect('users/add')->with('thongbao','Tạo thành công!!');
+		return redirect('users')->with('thongbao','Tạo thành công!!');
     }
-    public function getEdit($id){
+
+    public function edit($id){
+
         $user=User::find($id);
         $jurisdictions=Jurisdiction::all();
         return view('users.user_edit',['user'=>$user,'jurisdictions'=>$jurisdictions]);
     }
-    public function postEdit(Request $request,$id){
+    public function update(Request $request,$id){
+       
         $user=User::find($id);
         $this->validate($request,
             [
@@ -60,14 +63,14 @@ class UsersController extends Controller
         $user->email=$request->email;
         $user->jurisdiction_id=$request->jurisdiction_id;
         $user->save();
-        return redirect('users/list')->with('thongbao','Sửa thành công '.$user->id);
+        return redirect('users')->with('thongbao','Sửa thành công '.$user->id);
     }
-    public function getDelete($id){
+    public function destroy($id){
         $user=User::find($id);
         $user->delete();
-        return redirect('users/list')->with('thongbao','Xóa thành công '.$user->id);
+        return redirect('users')->with('thongbao','Xóa thành công '.$user->id);
     }
-     public function getDetail($id){
+     public function show($id){
         $user=User::find($id);
         return view('users.user_detail',['user'=>$user]);
     }

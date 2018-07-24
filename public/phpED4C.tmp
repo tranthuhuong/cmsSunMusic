@@ -1,0 +1,46 @@
+php artisan make:migration create_users_table
+php artisan migrate
+php artisan migrate:rollback
+
+
+
+
+<?php
+
+/**
+ * Laravel - A PHP Framework For Web Artisans
+ *
+ * @package  Laravel
+ * @author   Taylor Otwell <taylor@laravel.com>
+ */
+
+$uri = urldecode(
+    parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+);
+
+// This file allows us to emulate Apache's "mod_rewrite" functionality from the
+// built-in PHP web server. This provides a convenient way to test a Laravel
+// application without having installed a "real" web server software here.
+if ($uri !== '/' && file_exists(__DIR__.'/public'.$uri)) {
+    return false;
+}
+
+require_once __DIR__.'/public/index.php';
+https://drive.google.com/open?id=1tY4KhUjY0HBkyYYD9-aklGAAZ944iZHv
+https://drive.google.com/uc?id=1yqc5G0Ths7P4cO8ixyfVG81ZcvImyagX&export=download
+
+
+
+
+
+951131142723-i1la4phimmqbcds3rdao6th2b5calbd4.apps.googleusercontent.com
+
+kNRyPWYoHqcTCLh3RP9TPU3x
+
+
+FILESYSTEM_CLOUD=google
+GOOGLE_DRIVE_CLIENT_ID=951131142723-i1la4phimmqbcds3rdao6th2b5calbd4.apps.googleusercontent.com
+GOOGLE_DRIVE_CLIENT_SECRET=kNRyPWYoHqcTCLh3RP9TPU3x
+GOOGLE_DRIVE_REFRESH_TOKEN=951131142723-i1la4phimmqbcds3rdao6th2b5calbd4.apps.googleusercontent.com
+GOOGLE_DRIVE_FOLDER_ID=null
+#GOOGLE_DRIVE_TEAM_DRIVE_ID=xxx

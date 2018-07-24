@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <div class="card-two text-center">
                             <h2 class="card-title"><strong>Thông tin user</strong> 
-                                <a href="users/edit/{{$user->id}}" class="btn btn-primary"><span class="fa fa-edit"></span></a>
+                                <a href="users/{{$user->id}}/edit" class="btn btn-primary"><span class="fa fa-edit"></span></a>
                             </h2> 
                             <img src="{{$user->image}}" alt="" class="img_profile">
                             <br><br>

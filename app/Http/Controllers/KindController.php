@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Kind;
-
+use Illuminate\Support\Facades\App;
 class KindController extends Controller
 {
      //
@@ -12,15 +13,15 @@ class KindController extends Controller
     {
         $this->middleware('auth');
     }
-    public function getList(){
+    public function index(){
     	$kinds=Kind::all();
     	return view('kinds.kind_list',['kinds'=>$kinds]);
     }
-     public function getEdit($id){
+     public function edit($id){
     	$kind=Kind::find($id);
     	return view('kinds.kind_edit',['kind'=>$kind]);
     }
-    public function postEdit(Request $request,$id){
+    public function update(Request $request,$id){
     	$kind=Kind::find($id);
     	$this->validate($request,
     		[
@@ -33,13 +34,13 @@ class KindController extends Controller
     	$kind->kind_name=$request->kind_name;
     	$kind->kind_image=$request->kind_image;
 		$kind->save();
-		return redirect('kinds/list')->with('thongbao','Sửa thành công '.$kind->kind_name);
+		return redirect('kinds')->with('thongbao','Sửa thành công '.$kind->kind_name);
     }
 
-    public function getAdd(){
+    public function create(){
     	return view('kinds.kind_add');
     }
-    public function postAdd(Request $request){
+    public function store(Request $request){
     	$this->validate($request,
     		[
     			'kind_name'=>'required|min:3|max:80'
@@ -49,14 +50,23 @@ class KindController extends Controller
     			'kind_name.min'=>'Phải nhập lớn hơn 4 ký tự'
     		]);
     	$kind=new Kind;
-    	$kind->kind_name=$request->kind_name;
-    	$kind->kind_image=$request->kind_image;
+    	// $kind->kind_name= $controller = App::make('\App\Http\Controllers\AdminController');
+     //    $data = $controller->callAction('doUploadFileImage', "jo"->"jj");
+         $controller = new AdminController;
+
+         $data=$controller->doUploadFileImage($request);
+        //  $data =redirect()->action('AdminController@doUploadFileImage', array(
+        // 'request'  => $request));
+        $kind->kind_name= $request->kind_name;
+    	$kind->kind_image=$data;
+        $kind->description= $request->description;
 		$kind->save();
-		return redirect('kinds/add')->with('thongbao','Tạo thành công '.$kind->kind_name);
+		return redirect('kinds/create')->with('thongbao','Tạo thành công '.$kind->kind_name);
     }
-    public function getDelete($id){
+    public function destroy($id){
         $kind=Kind::find($id);
         $kind->delete();
-        return redirect('kinds/list')->with('thongbao','Xóa thành công '.$kind->kind_name);
+        return redirect('kinds')->with('thongbao','Xóa thành công '.$kind->kind_name);
     }
+
 }

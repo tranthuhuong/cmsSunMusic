@@ -36,11 +36,9 @@
                                 <strong>Thông báo!</strong> {{session('thongbao')}}
                             </div>
                         @endif
-                            {!! Form::open(['url' => 'kinds/edit']) !!}
-
-                            {!! Form::close() !!}
-                            <form class="form-valide" action="kinds/edit/{{$kind->kind_id}}" method="post">
+                            <form class="form-valide" action="kinds/{{$kind->kind_id}}" method="post">
                                 @csrf
+                                {{ method_field('PUT') }}
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-name">Tên Thể loại <span class="text-danger">*</span></label>

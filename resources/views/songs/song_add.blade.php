@@ -36,10 +36,7 @@
                                 <strong>Thông báo!</strong> {{session('thongbao')}}
                             </div>
                         @endif
-                            {!! Form::open(['url' => 'songs/add']) !!}
-
-                            {!! Form::close() !!}
-                            <form class="form-valide" action="songs/add" method="post">
+                            <form class="form-valide" action="songs" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-name"> Tên bài hát <span class="text-danger">*</span></label>
@@ -50,13 +47,15 @@
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-name">Hình ảnh <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" name="song_image" id="song_image"  placeholder="Nhập hình">
+                                        {{-- <input type="file" id="i_file" value="" name="imagefile"> --}}
+                                        <input type="text" id="" value="" name="song_image">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-name">Link bài hát <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" name="link" id="link"  placeholder="Nhập Nhạc">
+                                       {{-- <input type="file" id="i_file" value="" name="musicfile"> --}}
+                                       <input type="text" id="i_file" value="" name="link">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -127,7 +126,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-    $('.js-example-basic-multiple').select2();
-});
+        $('.js-example-basic-multiple').select2();
+    });
     </script>
 @endsection

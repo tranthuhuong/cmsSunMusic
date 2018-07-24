@@ -61,8 +61,13 @@
                                         <td>{{$nation->songs->count()}}</td>
                                         <td>{{$nation->created_at}}</td>
                                         <td>
-                                            <a href="nations/delete/{{$nation->nation_id}}" class="btn btn-danger"> <span class="fa fa-close"></span> </a>
-                                            <a href="nations/edit/{{$nation->nation_id}}" class="btn btn-primary"><span class="fa fa-edit"></span></a>
+                                            <a href="" class="btn btn-danger" onclick="event.preventDefault();
+                                                     document.getElementById('{{$nation->nation_id}}').submit(); " > <span class="fa fa-close"></span> </a>
+                                            <form id="{{$nation->nation_id}}" action="nations/{{$nation->nation_id}}" method="POST" style="display: none;">
+                                                @csrf
+                                                {{ method_field('DELETE') }}
+                                            </form>
+                                            <a href="nations/{{$nation->nation_id}}/edit" class="btn btn-primary"><span class="fa fa-edit"></span></a>
                                         </td>
                                     </tr>
                                     @endforeach

@@ -63,16 +63,23 @@
                                         <td class="text-center"><img src="{{$artist->artist_image}}" class="img-user-list" /></td>
                                         <td class="text-center"><img src="{{$artist->cover_img}}" class="img-cover-list" /></td>
                                         <td>{{$artist->artist_id}}</td>
-                                        <td><a href="artists/{{$artist->artist_id}}/detail">{{$artist->artist_name}}</a></td>
+                                        <td><a href="artists/{{$artist->artist_id}}">{{$artist->artist_name}}</a></td>
                                         <td ><div class="artist_info">{{$artist->info_summary}}</div></td>
                                          <td>{{$artist->nation->nation_name}}</td>
                                         <td>{{$artist->songsinger->count()}}</td>
                                         <td>{{$artist->created_at}}</td>
                                         <td>
-                                            <a href="artists/delete/{{$artist->artist_id}}" class="btn btn-danger"> <span class="fa fa-close"></span> </a>
-                                            <a href="artists/edit/{{$artist->artist_id}}" class="btn btn-primary"><span class="fa fa-edit"></span></a>
+                                            <a href="artists/{{$artist->artist_id}}" onclick="event.preventDefault();
+                                                     document.getElementById('{{$artist->artist_id}}').submit(); " class="btn btn-danger"> <span class="fa fa-close"></span> 
+                                            </a>
+                                            <form id="{{$artist->artist_id}}" action="artists/{{$artist->artist_id}}" method="POST" style="display: none;">
+                                                @csrf
+                                                {{ method_field('DELETE') }}
+                                            </form>
+                                            <a href="artists/{{$artist->artist_id}}/edit" class="btn btn-primary"><span class="fa fa-edit"></span></a>
                                         </td>
                                     </tr>
+                                    
                                     @endforeach
                                 </tbody>
                             </table>
